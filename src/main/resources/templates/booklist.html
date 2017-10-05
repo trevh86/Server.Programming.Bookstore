@@ -24,9 +24,11 @@
 			<td th:text="${book.price}"></td>
     		<td th:text="${book.category.name}"></td>
  			<td><a th:href="@{/delete/{id}(id=${book.id})}" class="btn btn-danger">Delete</a></td>
- 			<td><a th:href="@{/edit/{id}(id=${book.id})}">Edit</a></td>
+ 			<td><a th:href="@{/edit/{id}(id=${book.id})}" class="btn btn-primary">Edit</a></td>
+ 			<td><a th:href="@{/book/{id}(id=${book.id})}" class="btn btn-info">REST</a></td>
 		</tr>
 	</table>
 	 <a href="/add" class="btn btn-success">Add Book</a>
+	 <a href="/books" class="btn btn-success">Students REST</a>
 </body>
 </html>

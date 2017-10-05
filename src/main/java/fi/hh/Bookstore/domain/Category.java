@@ -43,10 +43,10 @@ public class Category {
 	public void setBooks(List<Book> books) {
 		this.books = books;
 	}
-//	@Override
-//	public String toString() {
-//		return "Category [categoryid=" + categoryid + ", name=" + name + ", books=" + books + "]";
-//	}
+	@Override
+	public String toString() {
+		return "Category [categoryid=" + categoryid + ", name=" + name + "]";
+	}
 	
 
 }
