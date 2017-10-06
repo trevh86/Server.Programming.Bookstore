@@ -29,6 +29,12 @@ public class BookstoreController {
 		return "booklist";
 	}
 	
+	// Login page.
+		@RequestMapping(value="/login")
+		public String login() {
+			return "login";
+		}
+	
 	// Add new book
 	@RequestMapping(value = "/add")
 	public String addBook(Model model){
