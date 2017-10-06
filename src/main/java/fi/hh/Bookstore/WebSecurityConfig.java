@@ -6,19 +6,25 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+
+import fi.hh.Bookstore.web.UserDetailServiceImpl;
 
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private UserDetailServiceImpl userDetailsService;
+	
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
         .authorizeRequests().antMatchers("/css/**").permitAll() // Enable css when logged out
         .and()
-        .authorizeRequests()
-        .antMatchers("/", "booklist", "add", "save", "addbook", "delete/{id}", "edit/{id}", "edit", "book/{id}", "books").permitAll()
-          .anyRequest().authenticated()
-          .and()
+        .authorizeRequests().antMatchers("/signup", "/saveuser").permitAll()
+        .and()
+        .authorizeRequests().anyRequest().authenticated()
+        .and()
       .formLogin()
           .loginPage("/login")
           .defaultSuccessUrl("/booklist")
@@ -30,9 +36,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-        auth
-            .inMemoryAuthentication()
-                .withUser("user").password("password").roles("USER").and()
-                .withUser("admin").password("password").roles("USER", "ADMIN");
+        auth.userDetailsService(userDetailsService).passwordEncoder(new BCryptPasswordEncoder());
     }
 }
